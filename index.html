@@ -1,223 +1,507 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Anonymous Web Developer</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>netclarissa2 — Professional Web Development</title>
 
+<!-- ====== STYLES: White base + neon green / neon yellow accents ====== -->
 <style>
-    :root {
-        --bg-dark: #0a0a0b;
-        --accent: #00ff7f;
-        --text-light: #e9fef1;
-    }
+  :root{
+    --white:#ffffff;
+    --paper:#fbfcfd;
+    --text:#0b0f14;
+    --muted:#5b6a74;
+    --neon-green:#00ff55;   /* thin neon lines */
+    --neon-yellow:#ccff00;  /* button accent */
+    --border: rgba(0,0,0,0.06);
+    --radius:12px;
+    --glass: rgba(255,255,255,0.6);
+    --maxw:1100px;
+  }
 
-    body {
-        margin: 0;
-        font-family: Arial, sans-serif;
-        background: var(--bg-dark);
-        color: var(--text-light);
-    }
+  /* Dark mode overrides */
+  body.dark{
+    --white:#0b0f14;
+    --paper:#0e1620;
+    --text:#e6eef3;
+    --muted:#98a2b3;
+    --border: rgba(255,255,255,0.06);
+  }
 
-    header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 18px 35px;
-        border-bottom: 1px solid var(--accent);
-        backdrop-filter: blur(4px);
-        position: sticky;
-        top: 0;
-        z-index: 100;
-    }
+  *{box-sizing:border-box}
+  html,body{height:100%;margin:0;font-family:Inter,ui-sans-serif,system-ui,Arial;color:var(--text);background:var(--white);-webkit-font-smoothing:antialiased}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:20px}
 
-    header h1 {
-        font-size: 1.4rem;
-        cursor: pointer;
-        color: var(--accent);
-        letter-spacing: 2px;
-        text-transform: uppercase;
-    }
+  /* Header */
+  header{position:sticky;top:0;z-index:999;background:linear-gradient(180deg, rgba(255,255,255,0.6), rgba(255,255,255,0.4));backdrop-filter:blur(6px);border-bottom:1px solid var(--border)}
+  header .inner{max-width:var(--maxw);margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:14px 20px;gap:12px}
+  .brand{display:flex;align-items:center;gap:12px;cursor:pointer}
+  .logoBox{width:44px;height:44px;border-radius:10px;background:linear-gradient(135deg,var(--neon-yellow),var(--neon-green));display:flex;align-items:center;justify-content:center;font-weight:800;color:#001}
+  .brand h1{font-size:1.05rem;margin:0}
+  nav{display:flex;gap:12px;align-items:center}
+  nav a{color:var(--text);text-decoration:none;padding:8px 10px;border-radius:8px;border:1px solid transparent;font-weight:600}
+  nav a:hover{border:1px solid rgba(0,0,0,0.04)}
 
-    nav a {
-        margin-left: 25px;
-        text-decoration: none;
-        color: var(--text-light);
-        transition: .3s;
-    }
-    nav a:hover { color: var(--accent); }
+  /* top controls */
+  .controls{display:flex;gap:8px;align-items:center}
+  .btn{padding:9px 12px;border-radius:9px;border:1px solid var(--neon-green);background:transparent;cursor:pointer;font-weight:700}
+  .btn.primary{background:linear-gradient(90deg,var(--neon-yellow),var(--neon-green));color:#001;border:1px solid rgba(0,0,0,0.06)}
+  .btn.ghost{background:transparent}
+  .lang{padding:8px 10px;border-radius:8px;border:1px solid var(--border);background:transparent}
 
-    .hero {
-        text-align: center;
-        padding: 90px 20px;
-    }
-    .hero h2 {
-        font-size: 2.6rem;
-        color: var(--accent);
-    }
+  /* Hero */
+  .hero{padding:48px 20px 28px}
+  .hero .cols{display:grid;grid-template-columns:1fr 360px;gap:20px;align-items:start}
+  .hero h2{font-size:2.6rem;margin:0 0 8px}
+  .hero p{margin:0;color:var(--muted);max-width:60ch}
+  .card{background:var(--paper);border-radius:var(--radius);padding:18px;border:1px solid var(--border);box-shadow:0 6px 18px rgba(0,0,0,0.04)}
 
-    .btn {
-        display: inline-block;
-        padding: 12px 28px;
-        border: 1px solid var(--accent);
-        color: var(--accent);
-        font-weight: bold;
-        margin-top: 25px;
-        border-radius: 6px;
-        text-decoration: none;
-        transition: .3s;
-    }
-    .btn:hover {
-        background: var(--accent);
-        color: #000;
-    }
+  /* Service / Pricing */
+  section{padding:26px 20px}
+  h3{margin:0 0 12px}
+  .pricing{display:flex;gap:16px;flex-wrap:wrap}
+  .plan{flex:1 1 240px;border-radius:12px;padding:18px;border:1px solid var(--border);background:var(--paper)}
+  .plan h4{margin:0 0 8px}
+  .price{font-size:1.7rem;color:var(--neon-green);font-weight:800;margin:12px 0}
 
-    section {
-        padding: 60px 25px;
-        max-width: 1100px;
-        margin: auto;
-    }
+  /* Projects */
+  .projectsGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin-top:12px}
 
-    .pricing-container {
-        display: flex;
-        justify-content: center;
-        gap: 25px;
-        flex-wrap: wrap;
-    }
+  /* Hidden projects area (password locked) */
+  #hiddenSection{display:none;margin-top:16px}
 
-    .card {
-        border: 1px solid var(--accent);
-        background: #00000030;
-        backdrop-filter: blur(4px);
-        border-radius: 8px;
-        width: 300px;
-        text-align: center;
-        padding: 30px 20px;
-        transition: .35s;
-    }
-    .card:hover {
-        transform: translateY(-6px);
-        box-shadow: 0 0 18px var(--accent);
-    }
+  /* Contact / footer */
+  footer{padding:20px;text-align:center;color:var(--muted);border-top:1px solid var(--border);margin-top:24px}
 
-    footer {
-        text-align: center;
-        padding: 20px;
-        border-top: 1px solid var(--accent);
-        font-size: 0.9rem;
-        margin-top: 30px;
-    }
+  /* Small helpers */
+  .muted{color:var(--muted)}
+  .tiny{font-size:0.85rem}
+  label{display:block;margin-top:8px;font-weight:600}
+  input,select,textarea{width:100%;padding:10px;border-radius:8px;border:1px solid var(--border);background:transparent;margin-top:6px;color:var(--text)}
+  pre{background:rgba(0,0,0,0.03);padding:10px;border-radius:8px;overflow:auto}
+  .row{display:flex;gap:8px;align-items:center}
+  @media(max-width:900px){ .hero .cols{grid-template-columns:1fr} .controls{flex-wrap:wrap} }
 
-    /* Modal */
-    #crypto {
-        display: none;
-        position: fixed;
-        inset: 0;
-        background: #000000dd;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-    .box {
-        background: #111;
-        border: 1px solid var(--accent);
-        border-radius: 10px;
-        padding: 30px;
-        max-width: 370px;
-        text-align: center;
-    }
-    code { color: var(--accent); }
-
-    .close {
-        margin-top: 18px;
-        padding: 10px 22px;
-        border: 1px solid var(--accent);
-        background: transparent;
-        color: var(--accent);
-        border-radius: 6px;
-        cursor: pointer;
-        transition: .3s;
-    }
-    .close:hover { background: var(--accent); color:#000; }
+  /* neon thin lines decoration */
+  .neon-line{height:2px;background:linear-gradient(90deg,var(--neon-green),var(--neon-yellow));border-radius:2px;margin:12px 0}
 </style>
 </head>
-
 <body>
 
+<!-- HEADER -->
 <header>
-    <h1 onclick="location.reload()">TheSafeCode</h1>
-    <nav>
+  <div class="inner">
+    <div class="brand" id="brand">
+      <div class="logoBox">NC2</div>
+      <div>
+        <h1>netclarissa2</h1>
+        <div class="muted tiny">Professional Web Development & Secure Solutions</div>
+      </div>
+    </div>
+
+    <div class="controls">
+      <nav>
         <a href="#services">Services</a>
         <a href="#pricing">Pricing</a>
-    </nav>
+        <a href="#projects">Projects</a>
+      </nav>
+
+      <select id="lang" class="lang" title="Language">
+        <option value="en">EN</option>
+        <option value="de">DE</option>
+      </select>
+
+      <button id="themeBtn" class="btn">Dark</button>
+
+      <button id="connectWalletBtn" class="btn">Connect Wallet</button>
+
+      <button id="loginBtn" class="btn">Login</button>
+    </div>
+  </div>
 </header>
 
-<div class="hero">
-    <h2>Anonymous Web Development</h2>
-    <p>No personal data. No accounts.  
-       Only direct work & crypto payment.</p>
-    <a class="btn" href="#pricing">Get Started</a>
+<!-- MAIN WRAP -->
+<div class="wrap">
+
+  <!-- HERO -->
+  <section class="hero" id="home">
+    <div class="cols">
+      <div>
+        <h2 id="heroTitle">Build Modern. Build Secure. Build Your Future.</h2>
+        <p id="heroText">I create high-performance websites with clean code, fast delivery and privacy-focused solutions. Whether you need a sleek landing page, a multi-page business website or a complete online upgrade — I deliver quality you can trust.</p>
+
+        <div class="row" style="margin-top:18px">
+          <button id="startBtn" class="btn primary">Get Started</button>
+          <button id="viewProjectsBtn" class="btn">View Projects</button>
+        </div>
+
+        <div class="neon-line"></div>
+
+        <h3>Skills & Expertise</h3>
+        <div class="row" style="gap:10px;margin-top:10px;flex-wrap:wrap">
+          <div class="card" style="min-width:160px">HTML5 • Semantic</div>
+          <div class="card" style="min-width:160px">CSS3 • Responsive</div>
+          <div class="card" style="min-width:160px">JavaScript • ES6+</div>
+          <div class="card" style="min-width:160px">Performance • SEO</div>
+        </div>
+      </div>
+
+      <aside>
+        <div class="card">
+          <h4>Quick Info</h4>
+          <p class="muted tiny">Anonymous crypto payments available (ETH, USDT-ERC20, USDT-BEP). No identity required. Escrow options on request.</p>
+          <div class="neon-line"></div>
+
+          <div>
+            <label>Wallet (connected):</label>
+            <div id="walletAddress" class="muted tiny">Not connected</div>
+            <label>Network RPC</label>
+            <select id="rpcSelect" style="margin-top:6px">
+              <option value="https://rpc.ftm.tools/">Fantom Mainnet (recommended)</option>
+              <option value="https://rpc.ankr.com/fantom">Fantom (alt)</option>
+              <option value="https://rpc.ankr.com/eth">Ethereum</option>
+            </select>
+            <label style="margin-top:10px">Safe Address (for receiving payments)</label>
+            <input id="safeAddress" placeholder="0xYourSafeAddress (paste here)" />
+            <div style="margin-top:12px" class="row">
+              <button id="showPayInfo" class="btn">Show Pay Info</button>
+            </div>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section id="services" class="card">
+    <h3>What I Do</h3>
+    <p class="muted">Website development focusing on reliability, privacy and maintainability. Hand-coded HTML / CSS / JS — no bloated frameworks unless requested.</p>
+    <div class="neon-line"></div>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px">
+      <div class="card">Landing Pages & Funnels</div>
+      <div class="card">Business Websites (4 pages)</div>
+      <div class="card">Full Custom Builds & Maintenance</div>
+      <div class="card">Performance & SEO Optimisation</div>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section id="pricing">
+    <h3>Service Packages</h3>
+    <p class="muted">Choose a package — Crypto-only payments optional.</p>
+    <div class="pricing">
+      <div class="plan">
+        <h4>Basic</h4>
+        <div class="price">$80</div>
+        <div class="muted tiny">1 Page • Responsive • Fast Delivery</div>
+        <div style="margin-top:12px" class="row">
+          <button class="btn primary payBtn" data-plan="Basic" data-price="80">$80 — Pay (MetaMask)</button>
+          <button class="btn">Order</button>
+        </div>
+      </div>
+
+      <div class="plan">
+        <h4>Standard</h4>
+        <div class="price">$180</div>
+        <div class="muted tiny">Up to 4 Pages • Business Website</div>
+        <div style="margin-top:12px" class="row">
+          <button class="btn primary payBtn" data-plan="Standard" data-price="180">$180 — Pay (MetaMask)</button>
+          <button class="btn">Order</button>
+        </div>
+      </div>
+
+      <div class="plan">
+        <h4>Premium</h4>
+        <div class="price">$750+</div>
+        <div class="muted tiny">Full-time development • Custom scope</div>
+        <div style="margin-top:12px" class="row">
+          <button class="btn primary payBtn" data-plan="Premium" data-price="750">$750+ — Pay (MetaMask)</button>
+          <button class="btn">Contact</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects" class="card">
+    <h3>Project Directory</h3>
+    <p class="muted">Public projects — hidden projects below require login.</p>
+
+    <div class="projectsGrid" id="publicProjects">
+      <div class="card">Modern SaaS Landing — Coming</div>
+      <div class="card">Real Estate Template — Coming</div>
+      <div class="card">Portfolio System — Coming</div>
+    </div>
+
+    <div class="neon-line"></div>
+
+    <!-- LOCKED / HIDDEN SECTION -->
+    <div id="hiddenLock" class="card">
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <div>
+          <strong>Hidden Client Templates</strong>
+          <div class="muted tiny">Password required — for clients only</div>
+        </div>
+        <div>
+          <button id="unlockBtn" class="btn">Unlock</button>
+        </div>
+      </div>
+
+      <div id="hiddenSection">
+        <h4>Private Projects & Templates</h4>
+        <div class="projectsGrid" id="privateProjects">
+          <div class="card">Template A — Business Landing (private)</div>
+          <div class="card">Template B — E-Commerce (private)</div>
+          <div class="card">Template C — Personal Branding (private)</div>
+        </div>
+
+        <div style="margin-top:12px" class="row">
+          <button id="logoutBtn" class="btn">Lock & Return</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="card">
+    <h3>Contact</h3>
+    <p class="muted">To start a project, use the payment buttons or connect and send a message via the platform you prefer. All interactions can remain anonymous if requested.</p>
+    <div class="neon-line"></div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+      <div>
+        <label>Quick Msg (client → instructions)</label>
+        <textarea id="msgBox" rows="4" placeholder="Brief project overview..."></textarea>
+      </div>
+      <div>
+        <label>Preferred Timeline</label>
+        <input id="timeline" placeholder="e.g. 7 days" />
+        <label>Budget (optional)</label>
+        <input id="budget" placeholder="$" />
+        <div style="margin-top:10px" class="row">
+          <button id="submitReq" class="btn primary">Submit Request (local)</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    netclarissa2 • Anonymous payments • Neon green accents
+  </footer>
+
 </div>
 
-<section id="services">
-    <h2>Services</h2>
-    <ul>
-        <li>Fast Mobile Websites</li>
-        <li>Modern UI/UX Design</li>
-        <li>Secure HTML/CSS/JS Code Only</li>
-        <li>Crypto Landing Pages</li>
-        <li>SEO & Speed Optimized</li>
-        <li>100% Privacy — No Identity Required</li>
-    </ul>
-</section>
-
-<section id="pricing">
-    <h2>Pricing</h2>
-    <p>Crypto Only → ETH & USDT (ERC20 + BNB Chain)</p>
-
-    <div class="pricing-container">
-        <div class="card">
-            <h3>Landing Page</h3>
-            <h1>$80</h1>
-            <p>1 Page • Responsive</p>
-            <div class="btn" onclick="openPay()">Crypto Pay</div>
-        </div>
-
-        <div class="card">
-            <h3>Business Website</h3>
-            <h1>$180</h1>
-            <p>4 Pages • Secure</p>
-            <div class="btn" onclick="openPay()">Crypto Pay</div>
-        </div>
-
-        <div class="card">
-            <h3>Full-Time Website</h3>
-            <h1>$750+</h1>
-            <p>Custom System • Scaling Ready</p>
-            <div class="btn" onclick="openPay()">Crypto Pay</div>
-        </div>
-    </div>
-</section>
-
-<footer>
-    Anonymous | Crypto Payments | Instant Delivery
-</footer>
-
-
-<div id="crypto">
-    <div class="box">
-        <h3>Wallet Addresses</h3>
-        <p><strong>ETH</strong><br><code>0xYOUR_ETH</code></p>
-        <p><strong>USDT ERC-20</strong><br><code>0xYOUR_ERC20</code></p>
-        <p><strong>USDT BNB Chain</strong><br><code>0xYOUR_BNB</code></p>
-        <button class="close" onclick="closePay()">Close</button>
-    </div>
-</div>
-
+<!-- ====== Payment / MetaMask logic & page behavior (JS) ====== -->
+<script src="https://cdn.jsdelivr.net/npm/ethers@6.9.2/dist/ethers.min.js"></script>
 <script>
-function openPay() { document.getElementById("crypto").style.display = "flex"; }
-function closePay() { document.getElementById("crypto").style.display = "none"; }
-</script>
+(() => {
+  // ---------- Config ----------
+  const SITE_NAME = 'netclarissa2';
+  const HIDDEN_PASSWORD = 'clientaccess'; // change this in code or prompt later
+  const SAFE_PLACEHOLDER = '0x0000000000000000000000000000000000000000'; // use real safe address
+  // Note: this is a client-only demo. In production replace with safe logic/documentation.
 
+  // ---------- Elements ----------
+  const brand = document.getElementById('brand');
+  const themeBtn = document.getElementById('themeBtn');
+  const langSelect = document.getElementById('lang');
+  const connectWalletBtn = document.getElementById('connectWalletBtn');
+  const walletAddressEl = document.getElementById('walletAddress');
+  const payBtns = document.querySelectorAll('.payBtn');
+  const unlockBtn = document.getElementById('unlockBtn');
+  const hiddenSection = document.getElementById('hiddenSection');
+  const logoutBtn = document.getElementById('logoutBtn');
+  const safeAddressInput = document.getElementById('safeAddress');
+  const showPayInfo = document.getElementById('showPayInfo');
+  const rpcSelect = document.getElementById('rpcSelect');
+  const startBtn = document.getElementById('startBtn');
+  const viewProjectsBtn = document.getElementById('viewProjectsBtn');
+  const connectBtn = connectWalletBtn;
+  const loginBtn = document.getElementById('loginBtn');
+  const msgBox = document.getElementById('msgBox');
+  const submitReq = document.getElementById('submitReq');
+
+  // Local state
+  let provider = null;
+  let signer = null;
+  let account = null;
+
+  // Init UI / events
+  brand.addEventListener('click', ()=> location.href = location.pathname); // reload root (reset)
+  themeBtn.addEventListener('click', toggleTheme);
+  langSelect.addEventListener('change', applyLanguage);
+  connectBtn.addEventListener('click', connectWallet);
+  payBtns.forEach(b => b.addEventListener('click', onPayClick));
+  unlockBtn.addEventListener('click', openLoginPrompt);
+  logoutBtn.addEventListener('click', lockHidden);
+  showPayInfo.addEventListener('click', showPayModal);
+  startBtn.addEventListener('click', ()=> window.scrollTo({top: document.getElementById('pricing').offsetTop - 50, behavior:'smooth'}));
+  viewProjectsBtn.addEventListener('click', ()=> window.scrollTo({top: document.getElementById('projects').offsetTop - 50, behavior:'smooth'}));
+  loginBtn.addEventListener('click', openLoginPrompt);
+  submitReq.addEventListener('click', submitLocalRequest);
+
+  // Apply initial language
+  applyLanguage();
+
+  // ---------- Theme toggle ----------
+  function toggleTheme(){
+    document.body.classList.toggle('dark');
+    themeBtn.innerText = document.body.classList.contains('dark') ? 'Light' : 'Dark';
+  }
+
+  // ---------- Language toggle (EN/DE small) ----------
+  function applyLanguage(){
+    const lang = langSelect.value;
+    if(lang === 'de'){
+      document.getElementById('heroTitle').innerText = 'Baue modern. Baue sicher. Baue deine Zukunft.';
+      document.getElementById('heroText').innerText = 'Ich erstelle performante Webseiten mit sauberem Code, schneller Lieferung und Datenschutz im Fokus.';
+      document.getElementById('startBtn').innerText = 'Loslegen';
+      document.getElementById('viewProjectsBtn').innerText = 'Projekte ansehen';
+      // Update other small strings as needed...
+    } else {
+      document.getElementById('heroTitle').innerText = 'Build Modern. Build Secure. Build Your Future.';
+      document.getElementById('heroText').innerText = 'I create high-performance websites with clean code, fast delivery and privacy-focused solutions. Whether you need a sleek landing page, a multi-page business website or a complete online upgrade — I deliver quality you can trust.';
+      document.getElementById('startBtn').innerText = 'Get Started';
+      document.getElementById('viewProjectsBtn').innerText = 'View Projects';
+    }
+  }
+
+  // ---------- MetaMask connect ----------
+  async function connectWallet(){
+    try {
+      if(!window.ethereum) {
+        alert('No injected wallet found. Install MetaMask or a compatible wallet.');
+        return;
+      }
+      provider = new ethers.BrowserProvider(window.ethereum);
+      await provider.send("eth_requestAccounts", []);
+      signer = await provider.getSigner();
+      account = await signer.getAddress();
+      walletAddressEl.innerText = account;
+      connectBtn.innerText = 'Connected';
+      connectBtn.classList.add('ghost');
+    } catch (e){
+      console.error(e); alert('Connect failed: ' + (e.message||e));
+    }
+  }
+
+  // ---------- Payment flow (client-only: send native token to safe) ----------
+  async function onPayClick(e){
+    const btn = e.currentTarget;
+    const plan = btn.dataset.plan;
+    const priceUsd = Number(btn.dataset.price);
+    // For simplicity: show user price and let them send native token equivalent manually
+    // This demo will ask user to enter amount in native token (FTM / ETH)
+    if(!signer){
+      const ok = confirm('Please connect your wallet first. Connect now?');
+      if(ok) await connectWallet();
+      if(!signer) return;
+    }
+
+    // Use safe address input or placeholder if empty
+    let safeAddr = (safeAddressInput.value || SAFE_PLACEHOLDER).trim();
+    if(!safeAddr || safeAddr === '0x0000000000000000000000000000000000000000'){
+      const proceed = confirm('Safe address not set. Payments will be sent to a placeholder address. Set a Safe address?');
+      if(!proceed) return;
+    }
+
+    // Ask payer how much native token to send (client side)
+    let nativeAmt = prompt(`Pay for ${plan} — enter native chain amount (e.g. 0.05). Price shown in USD: ${priceUsd}. Use your own conversion rate.`);
+    if(!nativeAmt) return;
+    try{
+      const tx = await signer.sendTransaction({ to: safeAddr, value: ethers.parseEther(nativeAmt) });
+      alert('Transaction sent: ' + tx.hash);
+      // optional: wait for mine
+      await tx.wait();
+      alert('Payment confirmed on chain — tx: ' + tx.hash);
+    }catch(err){
+      console.error(err); alert('Payment failed: ' + (err.message||err));
+    }
+  }
+
+  // ---------- Show payment info modal (simple prompt) ----------
+  function showPayModal(){
+    const safe = safeAddressInput.value.trim() || SAFE_PLACEHOLDER;
+    alert(`Payment addresses (set your Safe address):\nSafe: ${safe}\n\nSupported assets: native token (FTM/ETH), ERC-20 tokens (send to Safe).`);
+  }
+
+  // ---------- Hidden projects: login logic (client-only) ----------
+  function openLoginPrompt(){
+    // simple password prompt (client-side). For real use, change password constant or implement better flow.
+    const pw = prompt('Enter client access password:');
+    if(pw === null) return;
+    if(pw === HIDDEN_PASSWORD){
+      unlockHidden();
+    } else {
+      alert('Wrong password');
+    }
+  }
+
+  function unlockHidden(){
+    hiddenSection.style.display = 'block';
+    // hide unlock button
+    unlockBtn.style.display = 'none';
+    // show logout
+    logoutBtn.style.display = 'inline-block';
+    // store session locally
+    localStorage.setItem('nc2_unlocked', '1');
+    log('Hidden projects unlocked');
+    // scroll to hidden section
+    document.getElementById('hiddenSection').scrollIntoView({behavior:'smooth'});
+  }
+
+  function lockHidden(){
+    hiddenSection.style.display = 'none';
+    unlockBtn.style.display = 'inline-block';
+    logoutBtn.style.display = 'none';
+    localStorage.removeItem('nc2_unlocked');
+    log('Hidden projects locked — returned to homepage');
+    window.scrollTo({top:0, behavior:'smooth'});
+  }
+
+  // restore session
+  if(localStorage.getItem('nc2_unlocked') === '1'){
+    unlockHidden();
+  } else {
+    lockHidden();
+  }
+
+  // ---------- simple logging helper ----------
+  function log(msg){
+    console.log('[netclarissa2] ' + msg);
+  }
+
+  // ---------- Submit request (local only, stores to localStorage) ----------
+  function submitLocalRequest(){
+    const data = {
+      msg: msgBox.value || '',
+      timeline: document.getElementById('timeline').value || '',
+      budget: document.getElementById('budget').value || '',
+      ts: new Date().toISOString()
+    };
+    const queue = JSON.parse(localStorage.getItem('nc2_requests') || '[]');
+    queue.unshift(data);
+    localStorage.setItem('nc2_requests', JSON.stringify(queue));
+    alert('Request saved locally. Keep anonymous — share tx details if you paid via crypto.');
+    msgBox.value = '';
+  }
+
+  // ---------- small UX niceties ----------
+  // clicking wallet address -> copy
+  walletAddressEl.addEventListener('click', ()=> {
+    const text = walletAddressEl.innerText;
+    if(text && text !== 'Not connected'){
+      navigator.clipboard.writeText(text);
+      alert('Address copied to clipboard');
+    }
+  });
+
+  // quick tip on load
+  setTimeout(()=>{ log('netclarissa2 ready'); }, 400);
+
+})();
+</script>
 </body>
 </html>
