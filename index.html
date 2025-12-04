@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Anonymous Web Developer</title>
+
+<style>
+    :root {
+        --bg-dark: #0a0a0b;
+        --accent: #00ff7f;
+        --text-light: #e9fef1;
+    }
+
+    body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background: var(--bg-dark);
+        color: var(--text-light);
+    }
+
+    header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 18px 35px;
+        border-bottom: 1px solid var(--accent);
+        backdrop-filter: blur(4px);
+        position: sticky;
+        top: 0;
+        z-index: 100;
+    }
+
+    header h1 {
+        font-size: 1.4rem;
+        cursor: pointer;
+        color: var(--accent);
+        letter-spacing: 2px;
+        text-transform: uppercase;
+    }
+
+    nav a {
+        margin-left: 25px;
+        text-decoration: none;
+        color: var(--text-light);
+        transition: .3s;
+    }
+    nav a:hover { color: var(--accent); }
+
+    .hero {
+        text-align: center;
+        padding: 90px 20px;
+    }
+    .hero h2 {
+        font-size: 2.6rem;
+        color: var(--accent);
+    }
+
+    .btn {
+        display: inline-block;
+        padding: 12px 28px;
+        border: 1px solid var(--accent);
+        color: var(--accent);
+        font-weight: bold;
+        margin-top: 25px;
+        border-radius: 6px;
+        text-decoration: none;
+        transition: .3s;
+    }
+    .btn:hover {
+        background: var(--accent);
+        color: #000;
+    }
+
+    section {
+        padding: 60px 25px;
+        max-width: 1100px;
+        margin: auto;
+    }
+
+    .pricing-container {
+        display: flex;
+        justify-content: center;
+        gap: 25px;
+        flex-wrap: wrap;
+    }
+
+    .card {
+        border: 1px solid var(--accent);
+        background: #00000030;
+        backdrop-filter: blur(4px);
+        border-radius: 8px;
+        width: 300px;
+        text-align: center;
+        padding: 30px 20px;
+        transition: .35s;
+    }
+    .card:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 0 18px var(--accent);
+    }
+
+    footer {
+        text-align: center;
+        padding: 20px;
+        border-top: 1px solid var(--accent);
+        font-size: 0.9rem;
+        margin-top: 30px;
+    }
+
+    /* Modal */
+    #crypto {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: #000000dd;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .box {
+        background: #111;
+        border: 1px solid var(--accent);
+        border-radius: 10px;
+        padding: 30px;
+        max-width: 370px;
+        text-align: center;
+    }
+    code { color: var(--accent); }
+
+    .close {
+        margin-top: 18px;
+        padding: 10px 22px;
+        border: 1px solid var(--accent);
+        background: transparent;
+        color: var(--accent);
+        border-radius: 6px;
+        cursor: pointer;
+        transition: .3s;
+    }
+    .close:hover { background: var(--accent); color:#000; }
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1 onclick="location.reload()">TheSafeCode</h1>
+    <nav>
+        <a href="#services">Services</a>
+        <a href="#pricing">Pricing</a>
+    </nav>
+</header>
+
+<div class="hero">
+    <h2>Anonymous Web Development</h2>
+    <p>No personal data. No accounts.  
+       Only direct work & crypto payment.</p>
+    <a class="btn" href="#pricing">Get Started</a>
+</div>
+
+<section id="services">
+    <h2>Services</h2>
+    <ul>
+        <li>Fast Mobile Websites</li>
+        <li>Modern UI/UX Design</li>
+        <li>Secure HTML/CSS/JS Code Only</li>
+        <li>Crypto Landing Pages</li>
+        <li>SEO & Speed Optimized</li>
+        <li>100% Privacy — No Identity Required</li>
+    </ul>
+</section>
+
+<section id="pricing">
+    <h2>Pricing</h2>
+    <p>Crypto Only → ETH & USDT (ERC20 + BNB Chain)</p>
+
+    <div class="pricing-container">
+        <div class="card">
+            <h3>Landing Page</h3>
+            <h1>$80</h1>
+            <p>1 Page • Responsive</p>
+            <div class="btn" onclick="openPay()">Crypto Pay</div>
+        </div>
+
+        <div class="card">
+            <h3>Business Website</h3>
+            <h1>$180</h1>
+            <p>4 Pages • Secure</p>
+            <div class="btn" onclick="openPay()">Crypto Pay</div>
+        </div>
+
+        <div class="card">
+            <h3>Full-Time Website</h3>
+            <h1>$750+</h1>
+            <p>Custom System • Scaling Ready</p>
+            <div class="btn" onclick="openPay()">Crypto Pay</div>
+        </div>
+    </div>
+</section>
+
+<footer>
+    Anonymous | Crypto Payments | Instant Delivery
+</footer>
+
+
+<div id="crypto">
+    <div class="box">
+        <h3>Wallet Addresses</h3>
+        <p><strong>ETH</strong><br><code>0xYOUR_ETH</code></p>
+        <p><strong>USDT ERC-20</strong><br><code>0xYOUR_ERC20</code></p>
+        <p><strong>USDT BNB Chain</strong><br><code>0xYOUR_BNB</code></p>
+        <button class="close" onclick="closePay()">Close</button>
+    </div>
+</div>
+
+<script>
+function openPay() { document.getElementById("crypto").style.display = "flex"; }
+function closePay() { document.getElementById("crypto").style.display = "none"; }
+</script>
+
+</body>
+</html>
